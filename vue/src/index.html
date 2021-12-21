@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <span><router-link to="/login">登录</router-link></span>
+    <span><router-link to="/list">列表</router-link></span>
+    <br/>
+    <router-view></router-view>
+</div>
+</body>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/vue-router/dist/vue-router.js"></script>
+<script src="user/login.js"></script>
+<!--<script src="user/list.js"></script>-->
+<script type="text/javascript">
+    //列表界面 组件
+    const listForm = {
+        template: '\
+        <div>\
+        <table border="1" cellpadding="0" cellspacing="0"> \
+        <tr>\
+        <th>年龄</th>\
+        <th>姓名</th>\
+        </tr>\
+        <tr v-for="user in users">\
+        <td>{{user.age}}</td>\
+        <td>{{user.name}}</td>\
+        <br/>\
+        </table>\
+        </div>\
+        ',
+        data() {
+            return {
+                users: [
+                    {age: 1, name: '张三'},
+                    {age: 2, name: '李四'},
+                    {age: 3, name: '王五'},
+                ]
+            }
+        }
+    }
+    const router = new VueRouter({
+        routes: [
+            {
+                path: "/login",
+                component: loginForm
+            },
+            {
+                path: "/list",
+                component: listForm
+            }
+        ]
+    });
+    var app = new Vue({
+        el: "#app",
+        components: {//引入子组件到vue中
+            loginForm,
+            listForm,
+        },
+        router,  //添加路由组件
+    });
+</script>
+</html>
